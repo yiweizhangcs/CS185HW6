@@ -53,10 +53,12 @@ select{
 
 
 .nav-bar{
-  display: flex;
+  	display: flex;
+	cursor: pointer;
 }
 .nav-bar>div{
   padding: 10px;
+
 }
 .pagenow{
 	border: 2px solid black;
