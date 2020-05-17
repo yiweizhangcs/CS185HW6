@@ -1,50 +1,66 @@
 import React, { Component } from 'react';
 import Movie from './Movie';
-import './Movie.css'
-import './style2b.css';
-const list = require('./MovieList.json');
+import './MovieStyle.css'
+const list = require('./imdbid.json');
+// access the data
+  	// const list=[
+
+  	// 	{"id":"tt7286456"},
+  	// 	{"id":"tt8579674"},
+  	// 	{"id":"tt4154796"},
+  	// 	{"id":"tt8420184"},
+  	// 	{"id":"tt0944947"},
+  	// 	{"id":"tt1375666"},
+  	// 	{"id":"tt1950186"},
+  	// 	{"id":"tt0816692"}];
 
 export default class MovieGallery extends Component {
-  enlarge(image, title, director, rating, plot) {
-    document.body.style.overflow = 'hidden';
+	action(poster_src, title, director, rating, plot, score){
+		document.body.style.overflow='hidden';
 
+		var box = document.createElement('div');
+		box.id='box';
+		box.className = 'box_class';
+		
 
-    var box = document.createElement('div');
-    box.id = 'box';
-    box.className = 'box_setting';
+		var box_show = document.createElement('div');
+	    box_show.id = 'box_show';
+	    box_show.className='box_show_class';
 
-    var box_wrap = document.createElement('img');
-    box_wrap.src = image;
-    box_wrap.id = 'box_wrap'; 
+	    var Poster = document.createElement('img');
+		Poster.id = 'Poster';
+		Poster.src = poster_src;
 
+		var movieInfo = document.createElement('div');
+		movieInfo.id='movieInfo';
 
-    var box_info = document.createElement('div'); 
-    box_info.innerHTML = '<span class=\'title\'>'+title+'</span><br/><span class=\'director\'> Directed by:  '+director+'</span><br/> <p>'+plot+'</p>  <br/><br/>   <span class=\'rating\'>   &nbsp;&nbsp; &nbsp; IMDB Score: '+rating+'  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <br/><br/>';
-    box_info.id = 'box_info';
-    
-    var box_appearance = document.createElement('div');
-    box_appearance.id = 'box_appearance';
-    box_appearance.className = 'appearance';
+		movieInfo.innerHTML =  
+		'<span class=\'title\'>'+title+
+		'</span><br/><span class=\'director\'> Directed by:  '+director+
+		'</span><br/><br/><span class=\'rating\'>imdbRating: '+rating+
+		'</span><span class=\'score\'>Metascore: '+score+
+		'</span><br/><br/><p>Introduction:' +plot+
+		'</p><br/><br/> ';
 
-///////////////////////////
+	   
 
-    document.body.appendChild(box);  
-    document.getElementById('box').appendChild(box_appearance);
-    document.getElementById('box_appearance').appendChild(box_wrap);
-    document.getElementById('box_appearance').appendChild(box_info);
+	    document.body.appendChild(box);
+	    document.getElementById('box').appendChild(box_show);
+	    document.getElementById('box_show').appendChild(Poster);
+	    document.getElementById('box_show').appendChild(movieInfo);
 
-    document.getElementById('box').addEventListener('click', function(event) {
-      if(event.target.className === 'box_setting') {
-        document.getElementById('box').removeChild(document.getElementById('box_appearance'));
-        document.body.removeChild(document.getElementById('box'));
-        document.body.style.overflow = 'auto';
-      }
-    });
-  }
+	    document.getElementById('box').addEventListener('click', function(event) {
+	      if(event.target.className === 'box_class') {
+	        document.getElementById('box').removeChild(document.getElementById('box_show'));
+	        document.body.removeChild(document.getElementById('box'));
+	        document.body.style.overflow = 'auto';
+	      }
+	    });
+	}
 
   get(){
   	let movies =[];
-  	for(let movie of movies){
+  	for(let movie of list){
   		movies.push(movie.id);
   	}
   	return movies;
@@ -63,9 +79,11 @@ export default class MovieGallery extends Component {
   	// 	{"id":"tt0816692"}];
  		let movies=this.get();
     	return movies.map((movie)=>(
-			<div className='movie'>
-				<Movie movie={movie} enlarge={this.enlarge}/>
+			<div className='picture'>
+				<Movie movie={movie} action={this.action} />
 			</div>
 			));
+
       }
 }
+
