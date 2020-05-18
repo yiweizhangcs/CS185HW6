@@ -66,7 +66,7 @@ export class Movie extends Component {
   }
 
   render() {
-  	let access = 'http://www.omdbapi.com/?apikey=a26f20ed&i=' + this.props.movie;
+  	let access = 'https://www.omdbapi.com/?apikey=a26f20ed&i=' + this.props.movie;
     	return (
 			<div className='picture_2'>
 		        {this.accessInfo(this, access)}
